@@ -188,7 +188,7 @@ option in the Mail Configuration settings.
 - Exit Condition: The plugin's receiver is configured and ready to accept
 templates.
 - Quality Requirements: Any error messages must be helpful to the
-administrator. Plugin loading and unloading should be relatively seemless and
+administrator. Plugin loading and unloading should be relatively seamless and
 not interfere with operations in progress.
 
 ## Add Mail Server
@@ -208,7 +208,7 @@ the Mail Configuration settings.
   7. The system saves the server information and notifies the administrator.
 - Exit Condition: Users can use the mail server to send messages.
 - Quality Requirements: Any error messages must be helpful to the
-administrator. Plugin loading and unloading should be relatively seemless and
+administrator. Plugin loading and unloading should be relatively seamless and
 not interfere with operations in progress.
 
 ## Remove Mail Server
@@ -230,7 +230,7 @@ in the Mail Configuration settings.
   6. The system removes the server information and notifies the administrator.
 - Exit Condition: Users can no longer use the mail server to send messages.
 - Quality Requirements: Any error messages must be helpful to the
-administrator. Plugin loading and unloading should be relatively seemless and
+administrator. Plugin loading and unloading should be relatively seamless and
 not interfere with operations in progress.
 
 # System Settings
