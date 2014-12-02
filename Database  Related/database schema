@@ -1,0 +1,171 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+DROP SCHEMA IF EXISTS `CFPdb` ;
+CREATE SCHEMA IF NOT EXISTS `CFPdb` DEFAULT CHARACTER SET utf8 ;
+USE `CFPdb` ;
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`user_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`user_category` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`user_category` (
+  `role_id` BIT NOT NULL ,
+  `user_role` VARCHAR(25) NOT NULL ,
+  PRIMARY KEY (`role_id`) );
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`user` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`user` (
+  `username` VARCHAR(16) NOT NULL ,
+  `email` VARCHAR(80) NULL DEFAULT NULL ,
+  `password` VARCHAR(32) NOT NULL ,
+  `role_id` BIT NOT NULL ,
+  `user_id` VARCHAR(16) NOT NULL ,
+  PRIMARY KEY (`user_id`) ,
+  INDEX `role_id_idx` (`role_id` ASC) ,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) ,
+  CONSTRAINT `role_id`
+    FOREIGN KEY (`role_id` )
+    REFERENCES `CFPdb`.`user_category` (`role_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`Mailing_List`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`Mailing_List` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`Mailing_List` (
+  `idMailing_List` VARCHAR(45) NOT NULL ,
+  `Mailing_List_name` VARCHAR(45) NULL DEFAULT NULL ,
+  `user_id` VARCHAR(16) NOT NULL ,
+  PRIMARY KEY (`idMailing_List`) ,
+  INDEX `user_id_idx` (`user_id` ASC) ,
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `CFPdb`.`user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`Participant`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`Participant` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`Participant` (
+  `Researcher_fname` VARCHAR(25) NOT NULL ,
+  `Researcher_lname` VARCHAR(45) NULL DEFAULT NULL ,
+  `Email` VARCHAR(45) NULL DEFAULT NULL ,
+  `id_Mailing_List` VARCHAR(45) NOT NULL ,
+  `Participant_id` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`Participant_id`, `id_Mailing_List`) ,
+  INDEX `idMailing_List_idx` (`id_Mailing_List` ASC) ,
+  CONSTRAINT `idMailing_List`
+    FOREIGN KEY (`id_Mailing_List` )
+    REFERENCES `CFPdb`.`Mailing_List` (`idMailing_List` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`Session_tbl`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`Session_tbl` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`Session_tbl` (
+  `idSession` VARCHAR(32) NOT NULL ,
+  `user_id` VARCHAR(16) NULL DEFAULT NULL ,
+  `date_created` DATETIME NOT NULL ,
+  `last_updated` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`idSession`) ,
+  INDEX `user_id_idx` (`user_id` ASC) ,
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `CFPdb`.`user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`domains`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`domains` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`domains` (
+  `domain` VARCHAR(128) NOT NULL ,
+  PRIMARY KEY (`domain`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`transport`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`transport` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`transport` (
+  `domain` VARCHAR(128) NOT NULL ,
+  `transport` VARCHAR(128) NOT NULL ,
+  PRIMARY KEY (`domain`, `transport`) ,
+  UNIQUE INDEX `domain_UNIQUE` (`domain` ASC) ,
+  CONSTRAINT `domain`
+    FOREIGN KEY (`domain` )
+    REFERENCES `CFPdb`.`domains` (`domain` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`syst_configuratiion_user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`syst_configuratiion_user` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`syst_configuratiion_user` (
+  `user_id` VARCHAR(16) NOT NULL ,
+  `email` VARCHAR(80) NULL ,
+  `password` VARCHAR(45) NULL ,
+  `domain` VARCHAR(128) NOT NULL ,
+  `transport` VARCHAR(128) NOT NULL ,
+  INDEX `transport_idx` (`transport` ASC, `domain` ASC) ,
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `CFPdb`.`user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `transport`
+    FOREIGN KEY (`transport` , `domain` )
+    REFERENCES `CFPdb`.`transport` (`transport` , `domain` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CFPdb`.`forwardings`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CFPdb`.`forwardings` ;
+
+CREATE  TABLE IF NOT EXISTS `CFPdb`.`forwardings` (
+  `source` VARCHAR(80) NOT NULL ,
+  `destination` TEXT NOT NULL ,
+  PRIMARY KEY (`source`) )
+ENGINE = InnoDB;
+
+USE `CFPdb` ;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
