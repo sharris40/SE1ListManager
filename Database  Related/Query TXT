@@ -1,0 +1,7 @@
+"SELECT * FROM Event;"
+"SELECT * FROM Event WHERE eventchair="+eventChair+";"
+"SELECT * FROM Event WHERE eventname="+eventName+";"
+"SELECT * FROM user;"
+"SELECT * FROM user WHERE username="+userName+" AND password="+password+";"
+"SELECT * FROM (SELECT * FROM user as u INNER JOIN mailing_List as ml on u.user_id=ml.user_id  WHERE idMailing_List in (select * from Mailing_List where Mailing_List_Name="+XXXX+"));"
+"UPDATE user SET password="+newpassword+" WHERE username="+username+";"
