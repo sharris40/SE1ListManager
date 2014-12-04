@@ -42,7 +42,7 @@ public class EmailHandler {
 		}
 		return newMessage;
 	}
-	
+
 	public void sendEmail(JavaMail mail, EmailMessage email){
 		try{
 			mail.setMessage(new MimeMessage(mail.getSession()));

@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.model.SelectableDataModel;
-import temp.Database;
+import com.seproject.Database.DatabaseConnection;
 
 /**
  *
@@ -37,7 +37,7 @@ public class AddressBean {
         if (cachedAddresses == null) {
             cachedAddresses = new ArrayList<>();
         }
-        more = Database.getInstance().getEmailAddresses(null, cachedAddresses);
+        more = DatabaseConnection.getInstance().getEmailAddresses(null, cachedAddresses);
     }
 
     public boolean hasMore() {

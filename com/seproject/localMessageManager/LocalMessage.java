@@ -10,10 +10,16 @@ import com.seproject.emailClientMgmtCore.Email_Client_Management_Core;
 public class LocalMessage implements MessageTransceiver {
 	/** */
 	private EmailMessage localMessage;
-	
+    private Email_Client_Management_Core core;
+		
+	 
+	public LocalMessage(Email_Client_Management_Core core){
+		this.core = core;
+	}
 	/** */
 	private Integer userID;
 	
+
 	/** */
 	public EmailMessage SaveAsTemplate() {
 		return localMessage;
@@ -38,9 +44,9 @@ public class LocalMessage implements MessageTransceiver {
 		return null;
 	}
 
+
 	@Override
-	public Email_Client_Management_Core getContentManager(int userID) {
-		// TODO Auto-generated method stub
-		return null;
+	final public Email_Client_Management_Core getCoreManager() {
+		return  this.core;
 	}
 }

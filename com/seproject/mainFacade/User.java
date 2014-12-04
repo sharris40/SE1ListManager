@@ -17,10 +17,16 @@ package com.seproject.mainFacade;
 public abstract class User {
 	private int userID;
 	protected long sessionID;
+	protected String user;
+	protected String pass;
+	
 	protected UserSystemConfiguration config;
 	
-	public Boolean logIn(String user, String pass){
-		return null;
+	public boolean logIn(String user, String pass){
+		this.user = user;
+		this.pass = pass;
+		
+		return true;
 	}
 	
 	public Boolean logOut(){
@@ -35,5 +41,6 @@ public abstract class User {
 		return null;
 	}
 	
+	public int getUserID() { return this.userID;}
 	abstract User performRole();
 }

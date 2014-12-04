@@ -8,6 +8,7 @@ import com.seproject.emailClientMgmtCore.Email_Client_Management_Core;
 
 /** */
 public interface MessageTransceiver {
+
 	/** */
 	public EmailMessage getEmailMessage(int userID);
 	
@@ -15,6 +16,6 @@ public interface MessageTransceiver {
 	public EmailMessage getEmailMessageRTF(int userID);
 	
 	/** */
-	public Email_Client_Management_Core getContentManager(int userID);
+	public Email_Client_Management_Core getCoreManager();
 	
 }

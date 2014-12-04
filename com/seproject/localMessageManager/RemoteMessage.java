@@ -50,8 +50,10 @@ public class RemoteMessage implements MessageTransceiver {
 	}
 
 	@Override
-	public Email_Client_Management_Core getContentManager(int userID) {
+	public final Email_Client_Management_Core getCoreManager() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 }

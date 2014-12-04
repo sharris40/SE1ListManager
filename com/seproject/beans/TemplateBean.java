@@ -5,9 +5,9 @@
  */
 package com.seproject.beans;
 
-import com.seproject.emaildesigner.EmailMessageCommand;
-import com.seproject.emaildesigner.SaveMessage;
-import com.seproject.emailmanagement.EmailMessage;
+import com.seproject.emailClientMgmtCore.*;
+import com.seproject.localMessageManager.ChairView;
+
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -21,30 +21,24 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class TemplateBean {
 
-    private EmailMessage currentMessage;
-
-    public List<EmailMessage> getMessages() {
+    
+    
+    public List<EmailMessage> getMessages(ChairView view) {
         return new LinkedList<>();
     }
 
-    public EmailMessage getCurrentMessage() {
-        return currentMessage;
+    public EmailMessage getCurrentMessage(ChairView view) {
+    	return view.getCurrentMessage();
     }
 
-    public void setCurrentMessage(EmailMessage message) {
-        currentMessage = message;
+    public void setCurrentMessage(ChairView view, EmailMessage message) {
+        view.composeMessage(message.getTo(), message.getFrom(), message.getTitle(), message.getBody(), message.getName());
     }
 
-    public void save() {
+    public void save(ChairView view) {
         if (currentMessage != null) {
-            SaveMessage command = new SaveMessage();
-            command.saveMessage(currentMessage);
-            processCommand(command);
+           
         }
-    }
-
-    public void processCommand(EmailMessageCommand command) {
-        command.execute();
     }
 
 }

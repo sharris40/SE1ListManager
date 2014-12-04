@@ -5,6 +5,7 @@ import java.util.List;
 import com.seproject.JavaMail.JavaMail;
 import com.seproject.emailClientMgmtCore.EmailMessage;
 import com.seproject.emailClientMgmtCore.Email_Client_Management_Core;
+import com.seproject.mainFacade.Chair;
 import com.seproject.mainFacade.User;
 
 
@@ -14,15 +15,23 @@ import com.seproject.mainFacade.User;
 public class ChairView {
 	/** */
 	private LocalEmailManager manager;
-	//private User user;
+	private EmailMessage localMessage;
+	
+	Chair chair;
 
 	
-	public ChairView(){
-		manager = new LocalEmailManager();
+	public ChairView(Chair chair, Email_Client_Management_Core core){
+		manager = new LocalEmailManager( core);
+		this.chair = chair;
+		
 	}
 	/** */
 	public EmailMessage composeMessage(String to, String from, String title, String body, String name) {
-			return new EmailMessage(to, from, title, body, name);	
+			return  (localMessage = new EmailMessage(to, from, title, body, name));	
+	}
+	
+	public EmailMessage getCurrentMessage(){
+		 return localMessage;
 	}
 	
 	/** */
@@ -40,13 +49,17 @@ public class ChairView {
 	}
 	
 	/** */
-	public void removeAddresses(String list) {
+	public void removeAddresses(final Email_Client_Management_Core mail, List<String> list) {
+		mail.RemoveEmailAddress(list);
+	}
 	
+	public void removeAddresses(final Email_Client_Management_Core mail, String list) {
+		mail.RemoveEmailAddress(list);
 	}
 	
 	/** */
-	public void mergeAddressList(String list) {
-	
+	public void mergeAddressList(final Email_Client_Management_Core mail, List<String> l) {
+		mail.MergeAddressList(l);
 	}
 	
 	/** */

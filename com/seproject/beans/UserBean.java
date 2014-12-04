@@ -5,13 +5,14 @@
  */
 package com.seproject.beans;
 
-import com.seproject.mainfacade.Administrator;
-import com.seproject.mainfacade.Chair;
-import com.seproject.mainfacade.User;
+import com.seproject.Database.DatabaseConnection;
+import com.seproject.mainFacade.Administrator;
+import com.seproject.mainFacade.Chair;
+import com.seproject.mainFacade.User;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import temp.Database;
+
 
 /**
  *
@@ -32,7 +33,7 @@ public class UserBean implements Serializable {
 
     public void setUserName(String name) {
         this.name = name;
-        this.user = Database.getInstance().getUserByName(name);
+        this.user = DatabaseConnection.getInstance().getUserByName(name);
     }
 
     public int getUserID() {

@@ -54,6 +54,14 @@ public class Email_Client_Management_Core {
 		emailHandler = new EmailHandler();
 	}
 	
+	
+	public EmailMessage getMessage(){
+		return emailHandler.getMessage
+	}
+	public EmailHandler getHandler(){
+		return this.emailHandler;
+	}
+	
 	/** */
 	public Boolean sendEmail(EmailMessage message) {
 		emailHandler.sendEmail(mail, message);
@@ -148,5 +156,9 @@ public class Email_Client_Management_Core {
 			 }
 		 }
 		 return false;
+	}
+
+	public void MergeAddressList(List<String> l) {
+		contacts.addAll(l);
 	}
 }
