@@ -1,4 +1,4 @@
-package src.com.seproject.emailClientMgmtCore;
+package com.seproject.emailClientMgmtCore;
 
 public class RTFdoc {
 

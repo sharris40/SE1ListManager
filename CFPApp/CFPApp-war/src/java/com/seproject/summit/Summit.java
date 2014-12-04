@@ -1,4 +1,4 @@
-package src.com.seproject.summit;
+package com.seproject.summit;
 
 import java.util.Date;
 

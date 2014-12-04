@@ -1,6 +1,6 @@
-package src.com.seproject.emailClientMgmtCore;
+package com.seproject.emailClientMgmtCore;
 
-import src.com.seproject.emailDesigner.EmailDesigner;
+import com.seproject.emailDesigner.EmailDesigner;
 
 //
 //

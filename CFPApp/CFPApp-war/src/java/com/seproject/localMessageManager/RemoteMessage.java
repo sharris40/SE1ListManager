@@ -1,7 +1,7 @@
-package src.com.seproject.localMessageManager;
+package com.seproject.localMessageManager;
 
-import src.com.seproject.emailClientMgmtCore.EmailMessage;
-import src.com.seproject.emailClientMgmtCore.Email_Client_Management_Core;
+import com.seproject.emailClientMgmtCore.EmailMessage;
+import com.seproject.emailClientMgmtCore.Email_Client_Management_Core;
 
 //
 //
